@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Final Project: Instrument Store </title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="store-app">
+  <div class="maincart">
+  <div class="cart" v-on:click="emptyCart">
+    <div>CART</div>
+    <div><img v-bind:src="cartImg"/></div>
+    <div>{{cart.length}}</div>
+
+  </div>
+          <button class="button flexRight" v-on:click="popUpAdd">Add Item</button><br><br>
+    </div>
+  
+  <p class="title">Instrument Store</p>
+  <div v-if="items.length==0" class="alert">
+  <strong>Store is Empty!</strong>
+</div>
+  <div v-if="popUpShow" >
+    <div class="popUp">
+      <div v-if="popUpItem.image"><img v-bind:src="popUpItem.image"/></div>
+      <div>Name: {{popUpItem.name}}</div>
+      <div>Type: {{popUpItem.type}}</div>
+      <div>Price: ${{popUpItem.price}}</div>
+      <div>Brand: {{popUpItem.brand}}</div>
+      <button class="button" v-on:click="addCartItem(popUpItem,popUpIndex);popUpShow=false">Add To Cart</button>
+      <button class="button" v-on:click="popUpShow=false">Close</button>
+    </div>
+  </div>
+  <div v-if="popUpShowAdd" >
+    <div class="popUpForm">
+    <p>Add Item</p>
+
+      <form>
+  <label for="name">Name:</label>
+  <input id="name" name="name" v-model="nameAdd" type="text" placeholder="Name" ><br><br>
+  <label for="Price">Price:</label>
+  <input id="Price" name="Price" v-model="priceAdd" type="text" placeholder="Price" >
+  <label for="type">Type:</label>
+  <input id="type" name="type" v-model="typeAdd" type="text" placeholder="Type" >
+  <label for="brand">Brand: </label>
+  <label class="radio" for="one">Fender</label>
+  <input class="radio" id="ones" v-model="brandAdd" type="radio" name="brand" value="Fender">
+  <label class="radio" for="no">Yamaha</label>
+  <input class="radio" id="two" v-model="brandAdd" type="radio" name="brand" value="Yamaha">
+  <label class="radio" for="three">Maton</label>
+  <input class="radio" id="three" v-model="brandAdd" type="radio" name="brand" value="Maton">
+        
+</form>
+          <button class="button"  v-on:click="addNewItem">Submit</button><br><br>
+    <button class="button"  v-on:click="popUpShowAdd=false">Close</button><br><br>
+  </div>
+  
+</div>
+  <div class="main" v-for="(item,index) in items">
+    
+    <div class="item main" v-on:click="popUp(item,index)" v-bind:class="item.brand">
+      <div v-if="item.image"><img v-bind:src="item.image" /></div>
+      <div v-if="item.noImg"><img v-bind:src="noImg" /></div>
+      <div>{{item.name}}</div>
+    </div>
+    <button class="button" v-on:click="addCartItem(item,index)">Add To Cart</button>
+  </div>
+  <br>
+
+
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
